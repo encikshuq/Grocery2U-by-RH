@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grocery2U Admin Staff v1.2.8</title>
+  <link rel="icon" href="../favicon.ico">
+  <style>
+    :root{--green:#16a34a;--green2:#22c55e;--dark:#0f172a;--muted:#64748b;--bg:#f1f5f9;--card:#fff;--line:#e2e8f0;--red:#ef4444;--amber:#f59e0b;--blue:#2563eb}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#dcfce7,#e0f2fe);color:var(--dark);min-height:100vh}.bg:before{content:"";position:fixed;inset:0;background:url('../assets/grocery-bg-blur.jpg') center/cover no-repeat;filter:blur(8px);transform:scale(1.04);opacity:.28}.bg:after{content:"";position:fixed;inset:0;background:rgba(241,245,249,.80)}.shell{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:16px}.brand{display:flex;gap:12px;align-items:center}.brand img{width:58px;height:58px;object-fit:contain;background:#fff;border-radius:16px;box-shadow:0 8px 20px rgba(15,23,42,.08)}h1,h2,h3{margin:0}.muted{color:var(--muted);font-size:13px}.card{background:rgba(255,255,255,.90);border:1px solid rgba(226,232,240,.9);border-radius:22px;padding:18px;box-shadow:0 10px 25px rgba(15,23,42,.07);backdrop-filter:blur(12px);margin:12px 0}.login{max-width:430px;margin:9vh auto}.input{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px 14px;background:#fff;font-size:14px;outline:none;margin-top:9px}.btn{border:0;border-radius:14px;padding:12px 15px;font-weight:900;cursor:pointer;background:var(--green);color:#fff}.btn.secondary{background:#e2e8f0;color:var(--dark)}.btn.ghost{background:#f8fafc;color:var(--dark);border:1px solid var(--line)}.btn.small{padding:8px 10px;font-size:12px;border-radius:11px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.kpi b{display:block;font-size:30px}.kpi span{font-size:12px;color:var(--muted);font-weight:800}.bar{height:10px;background:#e2e8f0;border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green2));border-radius:999px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.tabs button.active{background:#dcfce7;color:#166534;border-color:#86efac}.table{display:grid;gap:10px}.row{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:16px;padding:13px;background:rgba(255,255,255,.72)}.row h4{margin:0 0 4px}.pill{display:inline-flex;border-radius:999px;padding:6px 9px;font-size:11px;font-weight:900;background:#e0f2fe;color:#075985}.pill.warn{background:#fef3c7;color:#92400e}.pill.danger{background:#fee2e2;color:#991b1b}.chart{height:128px;display:flex;align-items:end;gap:10px;padding-top:12px}.chart i{flex:1;min-height:12px;background:linear-gradient(180deg,#16a34a,#86efac);border-radius:12px 12px 5px 5px}.chart-labels{display:grid;grid-template-columns:repeat(7,1fr);font-size:11px;color:var(--muted);text-align:center}.notice{background:#ecfeff;border:1px solid #bae6fd;color:#075985;border-radius:16px;padding:12px;font-size:13px}.hide{display:none!important}@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}.top{align-items:flex-start;flex-direction:column}.shell{padding:14px}.row{flex-direction:column}.login{margin-top:4vh}}
+  </style>
+</head>
+<body class="bg">
+  <div id="loginScreen" class="shell">
+    <div class="card login">
+      <div class="brand"><img src="../assets/logo.png" alt="Grocery2U"><div><h1>Staff Admin</h1><p class="muted">Grocery2U by RH</p></div></div>
+      <div class="notice">Admin ini berasingan daripada user app. Login guna username dan password staf sahaja.</div>
+      <input id="adminUsername" class="input" placeholder="Username staf" autocomplete="username">
+      <input id="adminPassword" class="input" type="password" placeholder="Password" autocomplete="current-password">
+      <button class="btn" style="width:100%;margin-top:12px" onclick="adminLogin()">Login Admin</button>
+      <p class="muted">Demo local: <b>admin</b> / <b>grocery2u</b>. Untuk production, guna table <b>admin_users</b> di Supabase.</p>
+    </div>
+  </div>
+
+  <div id="adminApp" class="shell hide">
+    <div class="top">
+      <div class="brand"><img src="../assets/logo.png" alt="Grocery2U"><div><h1>Grocery2U Admin</h1><p class="muted">Monitor register, family, resit dan limit 3,000 family.</p></div></div>
+      <button class="btn secondary" onclick="adminLogout()">Logout</button>
+    </div>
+
+    <div class="grid">
+      <div class="card kpi"><b id="kUsers">0</b><span>Total register</span></div>
+      <div class="card kpi"><b id="kFamilies">0</b><span>Total family / 3,000</span></div>
+      <div class="card kpi"><b id="kReceipts">0</b><span>Resit upload</span></div>
+      <div class="card kpi"><b id="kClaims">RM0</b><span>Claim pending</span></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><div><h3>Family Usage</h3><p class="muted">Had production awal: 3,000 family sahaja.</p></div><b id="familyPct">0%</b></div>
+      <div class="bar" style="margin-top:12px"><span id="familyBar" style="width:0%"></span></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><div><h3>Register 7 Hari</h3><p class="muted">Smart view untuk trend pendaftaran terkini.</p></div><button class="btn small ghost" onclick="exportCSV()">Export CSV</button></div>
+      <div class="chart" id="chartBars"></div>
+      <div class="chart-labels" id="chartLabels"></div>
+    </div>
+
+    <div class="tabs">
+      <button class="btn small ghost active" onclick="setTab('users',this)">User</button>
+      <button class="btn small ghost" onclick="setTab('families',this)">Family</button>
+      <button class="btn small ghost" onclick="setTab('activity',this)">Aktiviti</button>
+      <button class="btn small ghost" onclick="setTab('supa',this)">Supabase</button>
+    </div>
+    <div id="tabContent" class="card"></div>
+  </div>
+
+<script>
+const LIMIT_FAMILIES=3000;
+const demo={users:[
+{id:'u1',username:'shuq',fullName:'Encik Shuq',createdAt:new Date().toISOString()},
+{id:'u2',username:'isteri',fullName:'Isteri',createdAt:new Date(Date.now()-86400000).toISOString()},
+{id:'u3',username:'ali',fullName:'Ali',createdAt:new Date(Date.now()-2*86400000).toISOString()}],families:[
+{id:'f1',name:'Keluarga Shuq',createdBy:'u1',createdAt:new Date().toISOString()},
+{id:'f2',name:'Keluarga Ali',createdBy:'u3',createdAt:new Date(Date.now()-2*86400000).toISOString()}],receipts:[
+{id:'r1',familyId:'f1',store:'Lotus\'s',amount:186.40,claimStatus:'unpaid',fileSize:320000},
+{id:'r2',familyId:'f1',store:'NSK',amount:92.30,claimStatus:'paid',fileSize:280000}],lists:[
+{id:'l1',familyId:'f1',title:'Barang dapur hari ini',status:'shopping',progress:72},
+{id:'l2',familyId:'f2',title:'Belian mingguan',status:'completed',progress:100}]};
+function loadDB(){try{return JSON.parse(localStorage.getItem('dapurlist_v11'))||demo}catch(e){return demo}}
+function adminLogin(){const u=document.getElementById('adminUsername').value.trim().toLowerCase();const p=document.getElementById('adminPassword').value;if(u==='admin'&&p==='grocery2u'){localStorage.setItem('grocery2u_admin_session','1');boot()}else alert('Username/password admin salah.')}
+function adminLogout(){localStorage.removeItem('grocery2u_admin_session');location.reload()}
+function boot(){if(localStorage.getItem('grocery2u_admin_session')){loginScreen.classList.add('hide');adminApp.classList.remove('hide');renderAdmin()}else{loginScreen.classList.remove('hide');adminApp.classList.add('hide')}}
+function fmtRM(n){return 'RM'+Number(n||0).toFixed(0)}
+function fmtDate(d){return new Date(d||Date.now()).toLocaleDateString('ms-MY')}
+function renderAdmin(){const db=loadDB();const users=db.users||[];const families=db.families||[];const receipts=db.receipts||[];const lists=db.lists||[];const pending=receipts.filter(r=>r.claimStatus==='unpaid').reduce((s,r)=>s+Number(r.amount||0),0);kUsers.textContent=users.length;kFamilies.textContent=families.length;kReceipts.textContent=receipts.length;kClaims.textContent=fmtRM(pending);const pct=Math.min(100,Math.round(families.length/LIMIT_FAMILIES*100));familyPct.textContent=pct+'%';familyBar.style.width=pct+'%';const days=[...Array(7)].map((_,i)=>{const d=new Date(Date.now()-(6-i)*86400000);const key=d.toDateString();const count=users.filter(u=>new Date(u.createdAt||Date.now()).toDateString()===key).length;return{label:d.toLocaleDateString('ms-MY',{weekday:'short'}),count}});const max=Math.max(1,...days.map(d=>d.count));chartBars.innerHTML=days.map(d=>`<i style="height:${Math.max(10,Math.round(d.count/max*110))}px" title="${d.count} register"></i>`).join('');chartLabels.innerHTML=days.map(d=>`<span>${d.label}<br><b>${d.count}</b></span>`).join('');setTab(localStorage.getItem('grocery2u_admin_tab')||'users')}
+function setTab(tab,btn){localStorage.setItem('grocery2u_admin_tab',tab);document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');else{const b=[...document.querySelectorAll('.tabs button')].find(x=>x.textContent.toLowerCase().includes(tab));if(b)b.classList.add('active')}const db=loadDB();const users=db.users||[],families=db.families||[],receipts=db.receipts||[],lists=db.lists||[];if(tab==='users')tabContent.innerHTML='<h3>User Terbaru</h3><div class="table">'+(users.map(u=>{const f=families.filter(x=>x.createdBy===u.id).length;return `<div class="row"><div><h4>${u.username}</h4><p class="muted">${u.fullName||'-'} • ${fmtDate(u.createdAt)}</p></div><span class="pill ${f>=5?'danger':f>=4?'warn':''}">${f}/5 family</span></div>`}).join('')||'<p class="muted">Belum ada user.</p>')+'</div>';if(tab==='families')tabContent.innerHTML='<h3>Family Terbaru</h3><div class="table">'+(families.map(f=>{const owner=users.find(u=>u.id===f.createdBy);return `<div class="row"><div><h4>${f.name||f.family_name}</h4><p class="muted">Owner: ${owner?.username||'-'} • ${fmtDate(f.createdAt)}</p></div><span class="pill">active</span></div>`}).join('')||'<p class="muted">Belum ada family.</p>')+'</div>';if(tab==='activity')tabContent.innerHTML='<h3>Aktiviti Senarai</h3><div class="table">'+(lists.map(l=>`<div class="row"><div style="flex:1"><h4>${l.title}</h4><p class="muted">Status: ${l.status}</p><div class="bar"><span style="width:${l.progress||0}%"></span></div></div><span class="pill">${l.progress||0}%</span></div>`).join('')||'<p class="muted">Belum ada aktiviti.</p>')+'</div>';if(tab==='supa')tabContent.innerHTML=`<h3>Supabase Yang Perlu Ada</h3><div class="notice">Run fail <b>supabase_schema.sql</b> versi v1.2.8.</div><ul class="muted"><li>Table <b>admin_users</b> untuk login staf.</li><li>Table <b>admin_sessions</b> untuk rekod session.</li><li>Trigger had maksimum <b>3,000 family</b>.</li><li>Trigger maksimum <b>5 family per user</b>.</li><li>View <b>admin_register_monitor</b>.</li><li>Bucket <b>receipts</b> untuk upload/download resit.</li></ul>`}
+function exportCSV(){const db=loadDB();const rows=['type,name,status',...((db.users||[]).map(u=>`user,${u.username},active`)),...((db.families||[]).map(f=>`family,${f.name||f.family_name},active`))];const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));a.download='grocery2u_admin_export.csv';a.click();URL.revokeObjectURL(a.href)}
+boot();
+</script>
+</body>
+</html>
