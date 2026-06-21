@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grocery2U by RH v1.2.2</title>
+  <title>Grocery2U by RH v1.2.3</title>
   <link rel="icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="assets/icons/icon-180.png">
-  <link rel="manifest" href="manifest.json?v=1.2.1">
+  <link rel="manifest" href="manifest.json?v=1.2.3">
   <meta name="theme-color" content="#16a34a">
   <style>
     :root{--green:#16a34a;--green2:#22c55e;--dark:#0f172a;--muted:#64748b;--bg:#f1f5f9;--card:#fff;--line:#e2e8f0;--amber:#f59e0b;--red:#ef4444;--blue:#2563eb;}
@@ -19,6 +19,9 @@
 
     .smart-chart{height:102px;margin-top:12px;padding:10px 4px 0;position:relative;background:rgba(255,255,255,.58);border:1px solid rgba(22,163,74,.16);border-radius:18px}
     .smart-chart svg{width:100%;height:76px;display:block;overflow:visible}.chart-labels{display:grid;grid-template-columns:repeat(7,1fr);font-size:10px;color:#64748b;text-align:center;margin-top:2px}.chart-summary{display:flex;gap:8px;margin-top:10px}.chart-summary .box{flex:1;background:rgba(255,255,255,.75);border:1px solid rgba(226,232,240,.9);border-radius:14px;padding:10px}.box b{display:block;font-size:16px}.live-progress-card{background:linear-gradient(135deg,#052e16,#16a34a);color:#fff;border:0}.live-progress-card .muted,.live-progress-card .mini{color:rgba(255,255,255,.76)}.progress-ring{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#facc15 var(--p),rgba(255,255,255,.22) 0);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}.progress-ring:before{content:"";position:absolute;width:68px;height:68px;border-radius:50%;background:#064e3b}.progress-ring b{position:relative;z-index:1;font-size:22px}.progress-ring-wrap{position:relative;display:grid;place-items:center}.live-stage{height:10px;background:rgba(255,255,255,.2);border-radius:999px;overflow:hidden;margin:10px 0}.live-stage span{display:block;height:100%;background:linear-gradient(90deg,#facc15,#fff);border-radius:999px}.settings-group{background:#fff;border:1px solid var(--line);border-radius:18px;margin:12px 0;overflow:hidden}.settings-head{padding:14px 15px;background:#f8fafc;border-bottom:1px solid var(--line)}.settings-head h3{margin:0;font-size:16px}.settings-head p{margin:3px 0 0;color:var(--muted);font-size:12px}.limit-note{background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:14px;padding:10px;font-size:12px;margin:8px 0}.tabs{grid-template-columns:repeat(4,1fr)}
+
+    .compact-toolbar{display:flex;gap:8px;align-items:center;margin:10px 0;position:sticky;top:0;background:#fff;z-index:3;padding:8px 0}
+    .filter-row{display:flex;gap:7px;overflow:auto;padding:2px 0 8px}.filter-chip{border:1px solid var(--line);background:#f8fafc;color:var(--dark);border-radius:999px;padding:8px 10px;font-weight:900;font-size:12px;white-space:nowrap}.filter-chip.active{background:#dcfce7;color:#166534;border-color:#86efac}.cat-accordion{border:1px solid var(--line);border-radius:18px;margin:10px 0;overflow:hidden;background:#fff}.cat-head{width:100%;border:0;background:#fff;padding:15px;display:flex;align-items:center;justify-content:space-between;text-align:left;font-weight:950;color:var(--dark);cursor:pointer}.cat-head small{color:var(--muted);font-weight:800}.cat-body{display:none;border-top:1px solid var(--line);padding:4px 14px;background:#fbfdff}.cat-accordion.open .cat-body{display:block}.cat-accordion.open .chev{transform:rotate(90deg)}.chev{display:inline-block;transition:.2s}.item-compact{cursor:pointer}.item-actions{display:none;margin-top:10px;gap:6px;flex-wrap:wrap}.item-compact.open .item-actions{display:flex}.fab{position:sticky;bottom:76px;margin-left:auto;display:grid;place-items:center;width:54px;height:54px;border-radius:50%;box-shadow:0 12px 25px rgba(22,163,74,.28);font-size:24px;z-index:5}.empty-state{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:18px;padding:16px;text-align:center;color:var(--muted);font-size:13px}
   </style>
 </head>
 <body>
@@ -36,7 +39,7 @@
       <button class="btn" style="width:100%" onclick="login()">Login</button>
       <button class="btn ghost" style="width:100%;margin-top:8px" onclick="registerDemo()">Daftar User Demo</button>
     </div>
-    <div class="notice">Grocery2U by RH v1.1: Login guna Username + PIN. User login dulu, kemudian create/join family dalam app.</div>
+    <div class="notice">Grocery2U by RH v1.2.3: Login guna Username + PIN. User login dulu, kemudian create/join family dalam app.</div>
   </section>
 
   <section id="appScreen" class="hide">
@@ -145,8 +148,44 @@ home.innerHTML=`
 <div class="freq-row"><div class="freq-chip"><span>🥚</span>Telur</div><div class="freq-chip"><span>🍗</span>Ayam</div><div class="freq-chip"><span>🧅</span>Bawang</div><div class="freq-chip"><span>🥛</span>Susu</div><div class="freq-chip"><span>🍚</span>Beras</div></div>
 <div class="card"><h3 style="margin-top:0">Aktiviti Terkini</h3><div class="activity-line"><span>Isteri upload resit</span><span class="mini">10:28</span></div><div class="activity-line"><span>Ayam ditanda dah beli</span><span class="mini">10:15</span></div><div class="activity-line"><span>Kicap diganti dengan jenama lain</span><span class="mini">09:47</span></div></div>`}
 function familyHtml(){const myMemberships=db.members.filter(m=>m.userId===session.userId);const createdCount=db.families.filter(f=>f.createdBy===session.userId).length;const mem=fam()?db.members.filter(m=>m.familyId===fam().id):[];return `<div class="settings-group"><div class="settings-head"><h3>Family</h3><p>Create atau join family. Had maksimum: 5 family untuk setiap akaun.</p></div><div style="padding:14px"><div class="limit-note">Family dibuat: ${createdCount}/5</div>${myMemberships.map(m=>{const f=db.families.find(x=>x.id===m.familyId);return `<div class="between item"><div><h4>${f.name}</h4><p>${m.role}</p></div><button class="btn small" onclick="setFamily('${f.id}')">Pilih</button></div>`}).join('')||'<p class="muted">Belum ada family.</p>'}<button class="btn" onclick="createFamily()">+ Create Family</button><button class="btn ghost" onclick="joinFamily()" style="margin-left:8px">Join Family</button></div></div><div class="settings-group"><div class="settings-head"><h3>Ahli Family Aktif</h3><p>Urus ahli untuk assign senarai belian.</p></div><div style="padding:14px">${mem.map(m=>`<div class="item"><div class="logo" style="width:34px;height:34px;border-radius:12px;font-size:12px">${m.nickname[0].toUpperCase()}</div><div><h4>${m.nickname}</h4><p>${m.role} • username: ${db.users.find(u=>u.id===m.userId)?.username}</p></div></div>`).join('')||'<p class="muted">Pilih family dahulu.</p>'}<button class="btn secondary" onclick="addMember()">+ Add Family Member</button></div></div>`}
-function itemsHtml(){const groups={};db.items.filter(i=>i.ownerUserId===session.userId).forEach(i=>(groups[i.category]??=[]).push(i));return `<div class="settings-group"><div class="settings-head"><h3>Master Senarai Barang</h3><p>Tambah, edit, aktif/off barang dapur. Menu ini dipindahkan ke Setting.</p></div><div style="padding:14px"><div class="search"><input class="input" placeholder="Cari barang dapur..." oninput="renderItemsFiltered(this.value)"></div><button class="btn" onclick="addItem()">+ Tambah Barang</button><div id="itemList">${Object.keys(groups).map(cat=>`<div class="category">${cat}</div><div class="card">${groups[cat].map(i=>`<div class="between item"><div><h4>${i.name} ${i.active?'':'<span class="pill red">Off</span>'}</h4><p>${i.unit}</p></div><div><button class="btn small secondary" onclick="editItem('${i.id}')">Edit</button> <button class="btn small ${i.active?'red':'green'}" onclick="toggleItem('${i.id}')">${i.active?'Off':'On'}</button></div></div>`).join('')}</div>`).join('')}</div></div></div>`}
-function renderItemsFiltered(q){q=q.toLowerCase();document.querySelectorAll('#itemList .item').forEach(el=>el.style.display=el.innerText.toLowerCase().includes(q)?'flex':'none')}
+let itemSearchQuery='';
+let itemStatusFilter='all';
+function buildItemGroups(){
+  const q=(itemSearchQuery||'').toLowerCase().trim();
+  const groups={};
+  db.items.filter(i=>i.ownerUserId===session.userId).filter(i=>{
+    if(itemStatusFilter==='active' && !i.active) return false;
+    if(itemStatusFilter==='off' && i.active) return false;
+    if(q && !(i.name+' '+i.category+' '+i.unit).toLowerCase().includes(q)) return false;
+    return true;
+  }).forEach(i=>(groups[i.category]??=[]).push(i));
+  return groups;
+}
+function setItemFilter(v){itemStatusFilter=v;renderSettings()}
+function renderItemsFiltered(q){itemSearchQuery=q||'';renderSettings()}
+function toggleCategory(cat){const el=document.getElementById('cat_'+safeId(cat));if(el)el.classList.toggle('open')}
+function safeId(str){return String(str).replace(/[^a-zA-Z0-9]/g,'_')}
+function toggleItemActions(id){const el=document.getElementById('item_'+id);if(el)el.classList.toggle('open')}
+function itemsHtml(){
+  const groups=buildItemGroups();
+  const all=db.items.filter(i=>i.ownerUserId===session.userId);
+  const active=all.filter(i=>i.active).length;
+  const off=all.length-active;
+  const cats=Object.keys(groups).sort();
+  return `<div class="settings-group"><div class="settings-head"><h3>Master Senarai Barang</h3><p>Compact view: kategori dibuka bila perlu supaya list tidak terlalu panjang.</p></div><div style="padding:14px">
+    <div class="compact-toolbar"><input class="input" placeholder="Cari barang dapur..." value="${itemSearchQuery}" oninput="renderItemsFiltered(this.value)"></div>
+    <div class="filter-row">
+      <button class="filter-chip ${itemStatusFilter==='all'?'active':''}" onclick="setItemFilter('all')">Semua ${all.length}</button>
+      <button class="filter-chip ${itemStatusFilter==='active'?'active':''}" onclick="setItemFilter('active')">Aktif ${active}</button>
+      <button class="filter-chip ${itemStatusFilter==='off'?'active':''}" onclick="setItemFilter('off')">Off ${off}</button>
+    </div>
+    <div id="itemList">${cats.length?cats.map(cat=>`<div id="cat_${safeId(cat)}" class="cat-accordion">
+      <button class="cat-head" onclick="toggleCategory('${cat.replace(/'/g,"\'")}')"><span><span class="chev">›</span> ${cat}</span><small>${groups[cat].length} barang</small></button>
+      <div class="cat-body">${groups[cat].map(i=>`<div id="item_${i.id}" class="item item-compact" onclick="toggleItemActions('${i.id}')"><div style="flex:1"><h4>${i.name} ${i.active?'':'<span class="pill red">Off</span>'}</h4><p>${i.unit}</p><div class="item-actions" onclick="event.stopPropagation()"><button class="btn small secondary" onclick="editItem('${i.id}')">Edit</button><button class="btn small ${i.active?'red':'green'}" onclick="toggleItem('${i.id}')">${i.active?'Off':'On'}</button><button class="btn small ghost" onclick="alert('Demo: delete sebenar akan guna soft delete supaya history tidak rosak.')">Delete</button></div></div></div>`).join('')}</div>
+    </div>`).join(''):'<div class="empty-state">Tiada barang dijumpai. Cuba ubah carian atau filter.</div>'}</div>
+    <button class="btn fab" title="Tambah barang" onclick="addItem()">+</button>
+  </div></div>`
+}
 function renderSettings(){settings.innerHTML=familyHtml()+itemsHtml()}
 function openSettingsItems(){const btn=[...document.querySelectorAll('.tab')].find(b=>b.textContent.includes('Setting'));showPage('settings',btn);setTimeout(()=>{const target=[...document.querySelectorAll('.settings-head h3')].find(h=>h.textContent.includes('Master'));if(target)target.scrollIntoView({behavior:'smooth',block:'start'});},80)}
 function renderLists(){const familyLists=db.lists.filter(l=>l.familyId===session.familyId);const activeItems=db.items.filter(i=>i.ownerUserId===session.userId&&i.active);lists.innerHTML=`<button class="btn" onclick="createList()">+ Buat Senarai Baru</button>${familyLists.map(l=>`<div class="card"><div class="between"><div><h3 class="list-title">${l.title}</h3><span class="pill ${l.status==='completed'?'green':'amber'}">${l.status}</span></div><div><button class="btn small blue" onclick="sendList('${l.id}')">Hantar</button> <button class="btn small" onclick="completeList('${l.id}')">Selesai</button></div></div><div class="category">Tambah barang</div><select onchange="if(this.value)addToList('${l.id}',this.value);this.value=''"><option value="">Pilih barang...</option>${activeItems.map(i=>`<option value="${i.id}">${i.category} - ${i.name}</option>`).join('')}</select><div class="category">Barang diminta</div>${l.items.map(r=>`<div class="item"><div><h4>${r.name}</h4><p>${r.unit} • ${r.status}${r.replacement?' → '+r.replacement:''}</p><div style="margin-top:8px"><button class="btn small" onclick="setStatus('${l.id}','${r.id}','bought')">Dah Beli</button> <button class="btn small red" onclick="setStatus('${l.id}','${r.id}','unavailable')">Tiada</button> <button class="btn small amber" onclick="setStatus('${l.id}','${r.id}','replaced')">Ganti</button></div></div></div>`).join('')||'<p class="muted">Belum tambah barang.</p>'}</div>`).join('')||'<div class="card"><p class="muted">Belum ada senarai.</p></div>'}`}
@@ -154,7 +193,7 @@ function renderReceipts(){const rec=db.receipts.filter(r=>r.familyId===session.f
 boot();
 </script>
 <script>
-  const APP_VERSION = '1.2.2';
+  const APP_VERSION = '1.2.3';
   async function registerGrocery2UServiceWorker(){
     if(!('serviceWorker' in navigator)) return;
     try{
