@@ -6,7 +6,7 @@
   <title>Grocery2U by RH v1.1</title>
   <link rel="icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="assets/icons/icon-180.png">
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.json?v=1.2.1">
   <meta name="theme-color" content="#16a34a">
   <style>
     :root{--green:#16a34a;--green2:#22c55e;--dark:#0f172a;--muted:#64748b;--bg:#f1f5f9;--card:#fff;--line:#e2e8f0;--amber:#f59e0b;--red:#ef4444;--blue:#2563eb;}
@@ -140,6 +140,38 @@ function renderLists(){const familyLists=db.lists.filter(l=>l.familyId===session
 function renderReceipts(){const rec=db.receipts.filter(r=>r.familyId===session.familyId);receipts.innerHTML=`<div class="receipt"><b>Upload Resit</b><p class="muted">Demo ini simpan jumlah resit. Versi live simpan gambar resit di Supabase Storage.</p><button class="btn blue" onclick="uploadReceipt()">+ Ambil/Upload Resit</button></div>${rec.map(r=>`<div class="card"><div class="between"><div><h3 class="list-title">RM${r.amount.toFixed(2)}</h3><p class="muted">${new Date(r.date).toLocaleDateString('ms-MY')} • dibayar oleh ${db.users.find(u=>u.id===r.payer)?.username}</p></div><span class="pill ${r.claimStatus==='paid'?'green':'amber'}">${r.claimStatus==='paid'?'Selesai':'Belum Claim'}</span></div><p class="muted">${r.note}</p>${r.claimStatus==='unpaid'?`<button class="btn" onclick="markPaid('${r.id}')">Mark Paid</button>`:''}</div>`).join('')||'<div class="card"><p class="muted">Belum ada resit.</p></div>'}`}
 boot();
 </script>
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('service-worker.js').catch(()=>{})}</script>
+<script>
+  const APP_VERSION = '1.2.1';
+  async function registerGrocery2UServiceWorker(){
+    if(!('serviceWorker' in navigator)) return;
+    try{
+      const reg = await navigator.serviceWorker.register('./sw.js?v=' + APP_VERSION);
+      if(reg.waiting){ reg.waiting.postMessage({type:'SKIP_WAITING'}); }
+      reg.addEventListener('updatefound', () => {
+        const worker = reg.installing;
+        if(!worker) return;
+        worker.addEventListener('statechange', () => {
+          if(worker.state === 'installed' && navigator.serviceWorker.controller){
+            window.location.reload();
+          }
+        });
+      });
+      const res = await fetch('./version.json?v=' + Date.now(), {cache:'no-store'});
+      const data = await res.json();
+      const saved = localStorage.getItem('grocery2u_app_version');
+      if(saved && saved !== data.version){
+        localStorage.setItem('grocery2u_app_version', data.version);
+        if(navigator.serviceWorker.controller){
+          const keys = await caches.keys();
+          await Promise.all(keys.filter(k => k.startsWith('grocery2u')).map(k => caches.delete(k)));
+          window.location.reload();
+        }
+      } else {
+        localStorage.setItem('grocery2u_app_version', data.version);
+      }
+    }catch(e){ console.warn('SW update check skipped', e); }
+  }
+  window.addEventListener('load', registerGrocery2UServiceWorker);
+</script>
 </body>
 </html>

@@ -2,7 +2,7 @@
   "name": "Grocery2U by RH",
   "short_name": "Grocery2U",
   "description": "Senarai, beli dan urus bersama.",
-  "start_url": "index.html",
+  "start_url": "index.html?v=1.2.1",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -21,5 +21,6 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "id": "/grocery2u-rh/"
 }
