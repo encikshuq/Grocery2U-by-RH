@@ -1,7 +1,7 @@
 {
-  "name": "BarangDapurKu",
-  "short_name": "BarangDapurKu",
-  "description": "Senarai barang keluarga, resit dan claim.",
+  "name": "Grocery2U by RH",
+  "short_name": "Grocery2U",
+  "description": "Senarai, beli dan urus bersama.",
   "start_url": "index.html",
   "scope": "./",
   "display": "standalone",
@@ -9,7 +9,17 @@
   "background_color": "#f1f5f9",
   "theme_color": "#16a34a",
   "icons": [
-    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }

@@ -1,4 +1,4 @@
--- DapurList v1.1 Supabase schema
+-- Grocery2U by RH v1.1 Supabase schema
 create extension if not exists pgcrypto;
 create table if not exists app_users (
   id uuid primary key default gen_random_uuid(),

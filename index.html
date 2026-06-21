@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BarangDapurKu v1.1</title>
+  <title>Grocery2U by RH v1.1</title>
   <link rel="icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="assets/icons/icon-180.png">
   <link rel="manifest" href="manifest.json">
@@ -16,10 +16,10 @@
 </head>
 <body>
 <div class="wrap"><main class="phone">
-  <div class="status"><span>9:41</span><span>BarangDapurKu</span><span>●●●</span></div>
+  <div class="status"><span>9:41</span><span>Grocery2U</span><span>●●●</span></div>
 
   <section id="authScreen" class="screen">
-    <div class="brand auth-brand"><img class="brand-logo" src="assets/logo-full.png" alt="BarangDapurKu logo"><div><h1>BarangDapurKu</h1><p>Senarai barang keluarga, resit & claim.</p></div></div>
+    <div class="brand auth-brand"><img class="brand-logo" src="assets/logo-full.png" alt="Grocery2U by RH logo"><div><h1>Grocery2U</h1><p>by RH • Senarai barang keluarga, resit & claim.</p></div></div>
     <div class="card">
       <h3 style="margin-top:0">Login Username</h3>
       <input id="loginUsername" class="input" placeholder="Username contoh: shuq" />
@@ -29,7 +29,7 @@
       <button class="btn" style="width:100%" onclick="login()">Login</button>
       <button class="btn ghost" style="width:100%;margin-top:8px" onclick="registerDemo()">Daftar User Demo</button>
     </div>
-    <div class="notice">BarangDapurKu v1.1: Login guna Username + PIN. User login dulu, kemudian create/join family dalam app.</div>
+    <div class="notice">Grocery2U by RH v1.1: Login guna Username + PIN. User login dulu, kemudian create/join family dalam app.</div>
   </section>
 
   <section id="appScreen" class="hide">
@@ -48,8 +48,9 @@
     </nav>
   </section>
 </main></div>
+<script src="supabase-config.js"></script>
 <script>
-const APP_NAME='BarangDapurKu';
+const APP_NAME='Grocery2U by RH';
 const seedItems=[['Sayur','Bayam','1 ikat'],['Sayur','Kangkung','1 ikat'],['Sayur','Sawi','1 ikat'],['Sayur','Kobis','1 biji'],['Sayur','Timun','3 biji'],['Sayur','Tomato','5 biji'],['Sayur','Cili Merah','200g'],['Sayur','Cili Padi','100g'],['Sayur','Bawang Merah','1kg'],['Sayur','Bawang Putih','500g'],['Ayam/Ikan/Daging','Ayam Segar','1 ekor'],['Ayam/Ikan/Daging','Daging Lembu','1kg'],['Ayam/Ikan/Daging','Ikan Kembung','1kg'],['Ayam/Ikan/Daging','Ikan Siakap','1 ekor'],['Ayam/Ikan/Daging','Udang','500g'],['Ayam/Ikan/Daging','Sotong','500g'],['Barang Kering','Beras','5kg'],['Barang Kering','Telur','30 biji'],['Barang Kering','Gula','1kg'],['Barang Kering','Garam','1 paket'],['Barang Kering','Minyak Masak','5kg'],['Barang Kering','Sardin','2 tin'],['Sos/Perasa','Kicap Jalen','1 botol'],['Sos/Perasa','Sos Cili','1 botol'],['Sos/Perasa','Sos Tiram','1 botol'],['Sos/Perasa','Serbuk Kari','1 paket'],['Tepung/Baking','Tepung Gandum','1kg'],['Tepung/Baking','Tepung Beras','1 paket'],['Tepung/Baking','Yis','1 pek'],['Minuman','Susu Dutch Lady','2 kotak'],['Minuman','Milo','1 pek'],['Minuman','Teh','1 kotak'],['Rumah','Sabun Basuh','1 botol'],['Rumah','Tisu','1 pek'],['Rumah','Pencuci Pinggan','1 botol']];
 let db=JSON.parse(localStorage.getItem('dapurlist_v11')||'null')||{users:[],families:[],members:[],items:[],lists:[],receipts:[]};
 let session=JSON.parse(localStorage.getItem('dapurlist_session')||'null');
@@ -76,7 +77,7 @@ function completeList(id){const l=db.lists.find(x=>x.id===id);l.status='complete
 function uploadReceipt(){if(!fam())return alert('Pilih family dahulu');const amount=prompt('Jumlah resit RM?','50.00');if(!amount)return;const payer=session.userId;db.receipts.push({id:sid(),familyId:fam().id,amount:Number(amount),payer,claimStatus:'unpaid',date:new Date().toISOString(),note:'Resit demo disimpan sebagai rekod. Versi production upload gambar ke Supabase Storage.'});save();renderReceipts();renderHome()}
 function markPaid(id){db.receipts.find(r=>r.id===id).claimStatus='paid';save();renderReceipts();renderHome()}
 function renderAll(){subTitle.textContent='Login: '+user().username+(fam()?(' • '+fam().name):' • belum pilih family');renderHome();renderFamily();renderItems();renderLists();renderReceipts()}
-function renderHome(){const activeLists=db.lists.filter(l=>l.familyId===session.familyId&&l.status!=='completed');const totalClaim=db.receipts.filter(r=>r.familyId===session.familyId&&r.claimStatus==='unpaid').reduce((s,r)=>s+r.amount,0);home.innerHTML=`<div class="brand"><img class="brand-icon" src="assets/icons/icon-96.png" alt="BarangDapurKu icon"><div><h1>Hi, ${user().username}</h1><p>${fam()?fam().name:'Create atau join family dahulu.'}</p></div></div><div class="grid2"><div class="kpi"><span class="mini">Senarai Aktif</span><br><b>${activeLists.length}</b></div><div class="kpi"><span class="mini">Claim Belum Settle</span><br><b>RM${totalClaim.toFixed(2)}</b></div></div><div class="card"><h3 style="margin-top:0">Aksi Cepat</h3><div class="grid2"><button class="btn" onclick="createList()">+ Senarai</button><button class="btn blue" onclick="uploadReceipt()">Upload Resit</button><button class="btn secondary" onclick="createFamily()">Create Family</button><button class="btn secondary" onclick="addMember()">Add Member</button></div></div><div class="card"><h3 style="margin-top:0">Progress Belian</h3>${activeLists.map(l=>`<div class="item"><div class="check"></div><div><h4>${l.title}</h4><p>${l.items.filter(i=>i.status==='bought').length}/${l.items.length} dibeli • Status ${l.status}</p></div></div>`).join('')||'<p class="muted">Belum ada senarai aktif.</p>'}</div>`}
+function renderHome(){const activeLists=db.lists.filter(l=>l.familyId===session.familyId&&l.status!=='completed');const totalClaim=db.receipts.filter(r=>r.familyId===session.familyId&&r.claimStatus==='unpaid').reduce((s,r)=>s+r.amount,0);home.innerHTML=`<div class="brand"><img class="brand-icon" src="assets/icons/icon-96.png" alt="Grocery2U icon"><div><h1>Hi, ${user().username}</h1><p>${fam()?fam().name:'Create atau join family dahulu.'}</p></div></div><div class="grid2"><div class="kpi"><span class="mini">Senarai Aktif</span><br><b>${activeLists.length}</b></div><div class="kpi"><span class="mini">Claim Belum Settle</span><br><b>RM${totalClaim.toFixed(2)}</b></div></div><div class="card"><h3 style="margin-top:0">Aksi Cepat</h3><div class="grid2"><button class="btn" onclick="createList()">+ Senarai</button><button class="btn blue" onclick="uploadReceipt()">Upload Resit</button><button class="btn secondary" onclick="createFamily()">Create Family</button><button class="btn secondary" onclick="addMember()">Add Member</button></div></div><div class="card"><h3 style="margin-top:0">Progress Belian</h3>${activeLists.map(l=>`<div class="item"><div class="check"></div><div><h4>${l.title}</h4><p>${l.items.filter(i=>i.status==='bought').length}/${l.items.length} dibeli • Status ${l.status}</p></div></div>`).join('')||'<p class="muted">Belum ada senarai aktif.</p>'}</div>`}
 function renderFamily(){const myMemberships=db.members.filter(m=>m.userId===session.userId);const mem=fam()?db.members.filter(m=>m.familyId===fam().id):[];family.innerHTML=`<div class="card"><h3 style="margin-top:0">Family Saya</h3>${myMemberships.map(m=>{const f=db.families.find(x=>x.id===m.familyId);return `<div class="between item"><div><h4>${f.name}</h4><p>${m.role}</p></div><button class="btn small" onclick="setFamily('${f.id}')">Pilih</button></div>`}).join('')||'<p class="muted">Belum ada family.</p>'}<button class="btn" onclick="createFamily()">+ Create Family</button><button class="btn ghost" onclick="joinFamily()" style="margin-left:8px">Join Family</button></div><div class="card"><h3 style="margin-top:0">Ahli Family Aktif</h3>${mem.map(m=>`<div class="item"><div class="logo" style="width:34px;height:34px;border-radius:12px;font-size:12px">${m.nickname[0].toUpperCase()}</div><div><h4>${m.nickname}</h4><p>${m.role} • username: ${db.users.find(u=>u.id===m.userId)?.username}</p></div></div>`).join('')||'<p class="muted">Pilih family dahulu.</p>'}<button class="btn secondary" onclick="addMember()">+ Add Family Member</button></div>`}
 function renderItems(){const groups={};db.items.filter(i=>i.ownerUserId===session.userId).forEach(i=>(groups[i.category]??=[]).push(i));items.innerHTML=`<div class="search"><input class="input" placeholder="Cari barang dapur..." oninput="renderItemsFiltered(this.value)"></div><button class="btn" onclick="addItem()">+ Tambah Barang</button><div id="itemList">${Object.keys(groups).map(cat=>`<div class="category">${cat}</div><div class="card">${groups[cat].map(i=>`<div class="between item"><div><h4>${i.name} ${i.active?'':'<span class="pill red">Off</span>'}</h4><p>${i.unit}</p></div><div><button class="btn small secondary" onclick="editItem('${i.id}')">Edit</button> <button class="btn small ${i.active?'red':'green'}" onclick="toggleItem('${i.id}')">${i.active?'Off':'On'}</button></div></div>`).join('')}</div>`).join('')}</div>`}
 function renderItemsFiltered(q){q=q.toLowerCase();document.querySelectorAll('#itemList .item').forEach(el=>el.style.display=el.innerText.toLowerCase().includes(q)?'flex':'none')}
