@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grocery2U by RH v1.2.4</title>
+  <title>Grocery2U by RH v1.2.5</title>
   <link rel="icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="assets/icons/icon-180.png">
-  <link rel="manifest" href="manifest.json?v=1.2.4">
+  <link rel="manifest" href="manifest.json?v=1.2.5">
   <meta name="theme-color" content="#16a34a">
   <style>
     :root{--green:#16a34a;--green2:#22c55e;--dark:#0f172a;--muted:#64748b;--bg:#f1f5f9;--card:#fff;--line:#e2e8f0;--amber:#f59e0b;--red:#ef4444;--blue:#2563eb;}
@@ -16,6 +16,8 @@
     .home-hero:before{content:"";position:absolute;inset:0;background:url("assets/grocery-bg-blur.jpg") center/cover no-repeat;filter:blur(1px);transform:scale(1.03);opacity:.95}
     .home-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(241,245,249,.92))}
     .home-hero>*{position:relative;z-index:1}.quick3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}.quick-btn{min-height:82px;border-radius:18px;border:1px solid rgba(255,255,255,.78);background:rgba(255,255,255,.88);box-shadow:0 8px 20px rgba(15,23,42,.08);font-weight:900;color:var(--dark);display:flex;align-items:center;justify-content:center;text-align:center;padding:10px}.quick-btn.primary{background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff}.active-card{display:flex;align-items:center;gap:12px}.round-icon{width:54px;height:54px;border-radius:18px;background:linear-gradient(135deg,#16a34a,#22c55e);display:grid;place-items:center;color:#fff;font-size:24px}.progress{height:8px;border-radius:99px;background:#e2e8f0;overflow:hidden;margin-top:8px}.progress span{display:block;height:100%;background:linear-gradient(90deg,#16a34a,#22c55e);border-radius:99px}.alert-card{background:#fff7ed;border-color:#fed7aa}.alert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}.alert-grid b{display:block;color:#ea580c;font-size:22px}.weekly-card{position:relative;overflow:hidden;border:0;background:url("assets/grocery-bg-blur.jpg") center/cover no-repeat}.weekly-card:before{content:"";position:absolute;inset:0;background:rgba(255,255,255,.70);backdrop-filter:blur(3px)}.weekly-card>*{position:relative;z-index:1}.weekly-amount{font-size:31px;font-weight:950;margin:6px 0 2px}.mini-chart{display:flex;align-items:end;gap:7px;height:58px;margin-top:10px}.mini-chart i{flex:1;border-radius:999px;background:linear-gradient(180deg,#22c55e,#86efac);min-height:14px}.freq-row{display:flex;gap:8px;overflow:auto;padding-bottom:4px}.freq-chip{min-width:72px;background:rgba(255,255,255,.90);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:16px;padding:10px;text-align:center;box-shadow:0 6px 14px rgba(15,23,42,.05);font-size:12px}.freq-chip span{font-size:25px;display:block}.activity-line{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}.activity-line:last-child{border-bottom:0}
+
+    .receipt-card{position:relative;overflow:hidden}.receipt-preview{height:150px;border-radius:18px;background:#f8fafc;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;margin:10px 0}.receipt-preview img{width:100%;height:100%;object-fit:cover}.receipt-preview .empty{font-size:42px;opacity:.6}.receipt-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.storage-meter{height:9px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin-top:7px}.storage-meter span{display:block;height:100%;background:linear-gradient(90deg,#16a34a,#22c55e);border-radius:999px}.receipt-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.receipt-meta .meta-box{background:rgba(248,250,252,.9);border:1px solid var(--line);border-radius:14px;padding:9px}.receipt-meta b{display:block;font-size:14px}.download-note{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;border-radius:15px;padding:10px;font-size:12px;margin-top:10px}
 
     .smart-chart{height:102px;margin-top:12px;padding:10px 4px 0;position:relative;background:rgba(255,255,255,.58);border:1px solid rgba(22,163,74,.16);border-radius:18px}
     .smart-chart svg{width:100%;height:76px;display:block;overflow:visible}.chart-labels{display:grid;grid-template-columns:repeat(7,1fr);font-size:10px;color:#64748b;text-align:center;margin-top:2px}.chart-summary{display:flex;gap:8px;margin-top:10px}.chart-summary .box{flex:1;background:rgba(255,255,255,.75);border:1px solid rgba(226,232,240,.9);border-radius:14px;padding:10px}.box b{display:block;font-size:16px}.live-progress-card{background:linear-gradient(135deg,#052e16,#16a34a);color:#fff;border:0}.live-progress-card .muted,.live-progress-card .mini{color:rgba(255,255,255,.76)}.progress-ring{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#facc15 var(--p),rgba(255,255,255,.22) 0);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}.progress-ring:before{content:"";position:absolute;width:68px;height:68px;border-radius:50%;background:#064e3b}.progress-ring b{position:relative;z-index:1;font-size:22px}.progress-ring-wrap{position:relative;display:grid;place-items:center}.live-stage{height:10px;background:rgba(255,255,255,.2);border-radius:999px;overflow:hidden;margin:10px 0}.live-stage span{display:block;height:100%;background:linear-gradient(90deg,#facc15,#fff);border-radius:999px}.settings-group{background:rgba(255,255,255,.90);border:1px solid rgba(226,232,240,.92);border-radius:18px;margin:12px 0;overflow:hidden;backdrop-filter:blur(10px)}.settings-head{padding:14px 15px;background:rgba(248,250,252,.86);border-bottom:1px solid var(--line)}.settings-head h3{margin:0;font-size:16px}.settings-head p{margin:3px 0 0;color:var(--muted);font-size:12px}.limit-note{background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:14px;padding:10px;font-size:12px;margin:8px 0}.tabs{grid-template-columns:repeat(4,1fr)}
@@ -41,7 +43,7 @@
       <button class="btn" style="width:100%" onclick="login()">Login</button>
       <button class="btn ghost" style="width:100%;margin-top:8px" onclick="registerDemo()">Daftar User Demo</button>
     </div>
-    <div class="notice">Grocery2U by RH v1.2.4: Login guna Username + PIN. User login dulu, kemudian create/join family dalam app.</div>
+    <div class="notice">Grocery2U by RH v1.2.5: Login guna Username + PIN. User login dulu, kemudian create/join family dalam app.</div>
   </section>
 
   <section id="appScreen" class="hide">
@@ -84,8 +86,37 @@ function addToList(listId,itemId){const l=db.lists.find(x=>x.id===listId);const 
 function setStatus(listId,rowId,status){const row=db.lists.find(x=>x.id===listId).items.find(i=>i.id===rowId);row.status=status;if(status==='replaced')row.replacement=prompt('Ganti dengan barang apa?',row.replacement||'')||'';save();renderLists();renderHome()}
 function sendList(id){const l=db.lists.find(x=>x.id===id);l.status='sent';save();renderLists();renderHome()}
 function completeList(id){const l=db.lists.find(x=>x.id===id);l.status='completed';save();renderLists();renderHome()}
-function uploadReceipt(){if(!fam())return alert('Pilih family dahulu');const amount=prompt('Jumlah resit RM?','50.00');if(!amount)return;const payer=session.userId;db.receipts.push({id:sid(),familyId:fam().id,amount:Number(amount),payer,claimStatus:'unpaid',date:new Date().toISOString(),note:'Resit demo disimpan sebagai rekod. Versi production upload gambar ke Supabase Storage.'});save();renderReceipts();renderHome()}
-function markPaid(id){db.receipts.find(r=>r.id===id).claimStatus='paid';save();renderReceipts();renderHome()}
+function uploadReceipt(){
+  if(!fam())return alert('Pilih family dahulu');
+  const input=document.createElement('input');
+  input.type='file';
+  input.accept='image/*,application/pdf';
+  input.capture='environment';
+  input.onchange=()=>{
+    const file=input.files&&input.files[0];
+    const store=prompt('Nama kedai?','Lotus')||'Kedai';
+    const amount=prompt('Jumlah resit RM?','50.00');
+    if(!amount)return;
+    const reader=new FileReader();
+    reader.onload=()=>{
+      const id=sid();
+      const safeStore=store.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'kedai';
+      const ext=file&&file.name.includes('.')?file.name.split('.').pop():'jpg';
+      const path=`receipts/family_${fam().id}/${new Date().getFullYear()}/${String(new Date().getMonth()+1).padStart(2,'0')}/receipt_${id}_${safeStore}.${ext}`;
+      db.receipts.push({id,familyId:fam().id,amount:Number(amount),payer:session.userId,claimStatus:'unpaid',date:new Date().toISOString(),storeName:store,fileName:file?file.name:`receipt_${id}.jpg`,fileSize:file?file.size:0,fileType:file?file.type:'image/jpeg',fileData:reader.result,storagePath:path,note:'Resit disimpan untuk rekod, claim dan download semula.'});
+      save();renderReceipts();renderHome();
+    };
+    if(file) reader.readAsDataURL(file); else reader.onload();
+  };
+  input.click();
+}
+function markPaid(id){const r=db.receipts.find(r=>r.id===id);r.claimStatus='paid';r.claimPaidAt=new Date().toISOString();save();renderReceipts();renderHome()}
+function downloadReceipt(id){const r=db.receipts.find(x=>x.id===id);if(!r)return;const a=document.createElement('a');a.href=r.fileData||'data:text/plain;charset=utf-8,'+encodeURIComponent('Tiada fail resit demo.');a.download=r.fileName||`receipt_${id}.jpg`;document.body.appendChild(a);a.click();a.remove()}
+async function shareReceipt(id){const r=db.receipts.find(x=>x.id===id);if(!r)return;if(navigator.share){try{await navigator.share({title:'Resit Grocery2U',text:`${r.storeName||'Resit'} - RM${Number(r.amount).toFixed(2)}`});}catch(e){}}else{alert('Share tidak disokong browser ini. Guna Download dahulu kemudian share dari telefon.')}}
+function deleteReceipt(id){if(!confirm('Delete resit ini?'))return;db.receipts=db.receipts.filter(r=>r.id!==id);save();renderReceipts();renderHome()}
+function exportReceipts(){const rec=db.receipts.filter(r=>r.familyId===session.familyId);const slim=rec.map(({fileData,...r})=>r);const blob=new Blob([JSON.stringify(slim,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='grocery2u_receipts_export.json';a.click();URL.revokeObjectURL(a.href)}
+function storageUsage(){return db.receipts.filter(r=>r.familyId===session.familyId).reduce((s,r)=>s+(r.fileSize||0),0)}
+function fmtBytes(n){if(!n)return '0 MB';return (n/1024/1024).toFixed(1)+' MB'}
 function renderAll(){subTitle.textContent='Login: '+user().username+(fam()?(' • '+fam().name):' • belum pilih family');renderHome();renderSettings();renderLists();renderReceipts()}
 function renderHome(){
 const activeLists=db.lists.filter(l=>l.familyId===session.familyId&&l.status!=='completed');
@@ -191,11 +222,22 @@ function itemsHtml(){
 function renderSettings(){settings.innerHTML=familyHtml()+itemsHtml()}
 function openSettingsItems(){const btn=[...document.querySelectorAll('.tab')].find(b=>b.textContent.includes('Setting'));showPage('settings',btn);setTimeout(()=>{const target=[...document.querySelectorAll('.settings-head h3')].find(h=>h.textContent.includes('Master'));if(target)target.scrollIntoView({behavior:'smooth',block:'start'});},80)}
 function renderLists(){const familyLists=db.lists.filter(l=>l.familyId===session.familyId);const activeItems=db.items.filter(i=>i.ownerUserId===session.userId&&i.active);lists.innerHTML=`<button class="btn" onclick="createList()">+ Buat Senarai Baru</button>${familyLists.map(l=>`<div class="card"><div class="between"><div><h3 class="list-title">${l.title}</h3><span class="pill ${l.status==='completed'?'green':'amber'}">${l.status}</span></div><div><button class="btn small blue" onclick="sendList('${l.id}')">Hantar</button> <button class="btn small" onclick="completeList('${l.id}')">Selesai</button></div></div><div class="category">Tambah barang</div><select onchange="if(this.value)addToList('${l.id}',this.value);this.value=''"><option value="">Pilih barang...</option>${activeItems.map(i=>`<option value="${i.id}">${i.category} - ${i.name}</option>`).join('')}</select><div class="category">Barang diminta</div>${l.items.map(r=>`<div class="item"><div><h4>${r.name}</h4><p>${r.unit} • ${r.status}${r.replacement?' → '+r.replacement:''}</p><div style="margin-top:8px"><button class="btn small" onclick="setStatus('${l.id}','${r.id}','bought')">Dah Beli</button> <button class="btn small red" onclick="setStatus('${l.id}','${r.id}','unavailable')">Tiada</button> <button class="btn small amber" onclick="setStatus('${l.id}','${r.id}','replaced')">Ganti</button></div></div></div>`).join('')||'<p class="muted">Belum tambah barang.</p>'}</div>`).join('')||'<div class="card"><p class="muted">Belum ada senarai.</p></div>'}`}
-function renderReceipts(){const rec=db.receipts.filter(r=>r.familyId===session.familyId);receipts.innerHTML=`<div class="receipt"><b>Upload Resit</b><p class="muted">Demo ini simpan jumlah resit. Versi live simpan gambar resit di Supabase Storage.</p><button class="btn blue" onclick="uploadReceipt()">+ Ambil/Upload Resit</button></div>${rec.map(r=>`<div class="card"><div class="between"><div><h3 class="list-title">RM${r.amount.toFixed(2)}</h3><p class="muted">${new Date(r.date).toLocaleDateString('ms-MY')} • dibayar oleh ${db.users.find(u=>u.id===r.payer)?.username}</p></div><span class="pill ${r.claimStatus==='paid'?'green':'amber'}">${r.claimStatus==='paid'?'Selesai':'Belum Claim'}</span></div><p class="muted">${r.note}</p>${r.claimStatus==='unpaid'?`<button class="btn" onclick="markPaid('${r.id}')">Mark Paid</button>`:''}</div>`).join('')||'<div class="card"><p class="muted">Belum ada resit.</p></div>'}`}
+function renderReceipts(){
+  const rec=db.receipts.filter(r=>r.familyId===session.familyId).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const used=storageUsage();
+  const pct=Math.min(100,Math.round((used/(50*1024*1024))*100));
+  receipts.innerHTML=`<div class="receipt"><b>Upload Resit</b><p class="muted">Gambar resit akan disimpan di Supabase Storage bucket <b>receipts</b>. Demo local ini simpan preview dalam browser.</p><button class="btn blue" onclick="uploadReceipt()">+ Ambil/Upload Resit</button><button class="btn ghost" style="margin-left:8px" onclick="exportReceipts()">Export Rekod</button></div>
+  <div class="card"><div class="between"><div><h3 style="margin:0">Storage Resit</h3><p class="muted">Cadangan limit: 50MB setiap family</p></div><b>${fmtBytes(used)} / 50MB</b></div><div class="storage-meter"><span style="width:${pct}%"></span></div><div class="download-note">Setiap resit boleh dibuka, download semula, share atau delete.</div></div>
+  ${rec.map(r=>`<div class="card receipt-card"><div class="between"><div><h3 class="list-title">${r.storeName||'Resit'} • RM${Number(r.amount).toFixed(2)}</h3><p class="muted">${new Date(r.date).toLocaleDateString('ms-MY')} • dibayar oleh ${db.users.find(u=>u.id===r.payer)?.username||'-'}</p></div><span class="pill ${r.claimStatus==='paid'?'green':'amber'}">${r.claimStatus==='paid'?'Selesai':'Belum Claim'}</span></div>
+    <div class="receipt-preview">${r.fileData&&String(r.fileData).startsWith('data:image')?`<img src="${r.fileData}" alt="Resit">`:'<div class="empty">🧾</div>'}</div>
+    <div class="receipt-meta"><div class="meta-box"><span class="mini">Fail</span><b>${r.fileName||'receipt.jpg'}</b></div><div class="meta-box"><span class="mini">Saiz</span><b>${fmtBytes(r.fileSize||0)}</b></div></div>
+    <p class="muted" style="word-break:break-all">Storage path: ${r.storagePath||'receipts/family_id/yyyy/mm/receipt.jpg'}</p>
+    <div class="receipt-actions"><button class="btn small ghost" onclick="downloadReceipt('${r.id}')">⬇️ Download</button><button class="btn small ghost" onclick="shareReceipt('${r.id}')">📤 Share</button>${r.claimStatus==='unpaid'?`<button class="btn small" onclick="markPaid('${r.id}')">Paid</button>`:'<button class="btn small secondary">Paid</button>'}<button class="btn small red" onclick="deleteReceipt('${r.id}')">Delete</button></div></div>`).join('')||'<div class="card"><p class="muted">Belum ada resit.</p></div>'}`
+}
 boot();
 </script>
 <script>
-  const APP_VERSION = '1.2.4';
+  const APP_VERSION = '1.2.5';
   async function registerGrocery2UServiceWorker(){
     if(!('serviceWorker' in navigator)) return;
     try{

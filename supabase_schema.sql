@@ -1,4 +1,4 @@
--- Grocery2U by RH v1.1 Supabase schema
+-- Grocery2U by RH v1.2.5 Supabase schema
 create extension if not exists pgcrypto;
 create table if not exists app_users (
   id uuid primary key default gen_random_uuid(),
@@ -71,8 +71,23 @@ create table if not exists receipts (
   receipt_date date default current_date,
   total_amount numeric(10,2) default 0,
   receipt_file_url text,
+  original_file_path text,
+  preview_file_path text,
+  file_name text,
+  mime_type text,
+  file_size_bytes bigint default 0,
   claim_status text default 'unpaid',
   claim_paid_at timestamptz,
   created_at timestamptz default now()
 );
 -- For production, enable RLS and create policies based on family_members.
+
+
+-- Receipt storage bucket
+insert into storage.buckets (id, name, public)
+values ('receipts', 'receipts', false)
+on conflict (id) do nothing;
+
+-- Suggested path format:
+-- receipts/{family_id}/{yyyy}/{mm}/receipt_{receipt_id}.webp
+-- Store the file path in receipts.original_file_path / preview_file_path.
